@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Canvas.module.css';
 
 function Canvas(props) {
 
@@ -9,9 +10,14 @@ function Canvas(props) {
   });
 
   return (
-    <canvas
-      ref={canvasRef}
-    />
+    <div className={styles.Canvas}>
+      <canvas
+        ref={canvasRef}
+        width="1000"
+        height="1000"
+        className={styles.canvas}
+      />
+    </div>
   );
 }
 
