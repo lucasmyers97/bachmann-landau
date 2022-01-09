@@ -2,8 +2,17 @@
   position: relative;
   width: 500px;
   height: 500px;
+  border-width: 2px;
   border-style: solid;
-  border-color: white;
+  border-color: black;
+  z-index: 1;
+}
+
+.Buttons {
+  position: absolute;
+  margin: 20px;
+  background-color: white;
+  text-align: center;
   z-index: 1;
 }
 
@@ -23,24 +32,4 @@
   top: 0px;
   left: 0px;
   z-index: -1;
-}
-
-.ZoomSlider {
-  position: relative;
-  z-index: 1;
-}
-
-.ZoomLabel {
-  display: block;
-  padding-right: 1px;
-}
-
-.NormSlider {
-  position: relative;
-  z-index: 1;
-}
-
-.NormLabel {
-  display: block;
-  padding-right: 20px;
 }

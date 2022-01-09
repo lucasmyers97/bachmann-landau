@@ -1,5 +1,6 @@
 .ClickDrag {
   position: relative;
+  font-size: 20px;
   z-index: 2;
   cursor: col-resize;
   user-select: none;

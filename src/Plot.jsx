@@ -72,14 +72,16 @@ function Plot(props) {
 
   return (
     <div className={styles.Plot}>
-      <ClickDrag
-        onMouseDown={handleZoomMouseDown}
-        value={`${Number(zoom*100).toFixed(0)}%`}
-      />
-      <ClickDrag
-        onMouseDown={handleScaleMouseDown}
-        value={`${Number(scale).toExponential(2)}`}
-      />
+      <div className={styles.Buttons}>
+        <ClickDrag
+          onMouseDown={handleZoomMouseDown}
+          value={`Zoom: ${Number(zoom*100).toFixed(0)}%`}
+        />
+        <ClickDrag
+          onMouseDown={handleScaleMouseDown}
+          value={`Scale: ${Number(scale).toExponential(2)}`}
+        />
+      </div>
       <div className={styles.Canvas}>
         <Canvas
           draw={(canvasRef) => renderCanvas(canvasRef, props.paths, zoom, props.line_props)}
