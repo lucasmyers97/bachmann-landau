@@ -1,0 +1,9 @@
+#+Title: To-do list for the project
+#+Author: Lucas Myers
+
+* To-do
+
+** TODO Fix gridlines so that they are always square
+** TODO Pass in line-width to render function
+** TODO Add ability to choose function
+
