@@ -1,4 +1,5 @@
 .ClickDrag {
+  position: relative;
   z-index: 2;
   cursor: col-resize;
   user-select: none;

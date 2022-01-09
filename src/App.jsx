@@ -9,19 +9,17 @@ function App() {
   const [plot_1_val, setPlot1Val] = React.useState(0.5);
   const [plot_2_val, setPlot2Val] = React.useState(0.5);
 
-  const [current_click_pos, setCurrentClickPos] = React.useState({x: 0, y: 0});
-  const [button_clicked, setButtonClicked] = React.useState(false);
-  const [button_value, setButtonValue] = React.useState(0);
-
+  // handle mouse events
+  const [mouse_pos, setMousePos] = React.useState({x: 0, y: 0});
+  const [mouse_clicked, setMouseClicked] = React.useState(false);
   function handleMouseMove(event) {
-    setCurrentClickPos({x: event.pageX, y: event.pageY});
-    if (button_clicked) {
-      setButtonValue(current_click_pos.x);
-    }
+    setMousePos({x: event.pageX, y: event.pageY});
   }
-
   function handleMouseUp(event) {
-    setButtonClicked(false);
+    setMouseClicked(false);
+  }
+  function handleMouseDown(event) {
+    setMouseClicked(true);
   }
 
   const pts = returnCircle(plot_1_val);
@@ -33,24 +31,25 @@ function App() {
   return (
     <div
       className={style.App}
+      onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
     >
       <Plot
         slider_value={plot_1_val}
-        onSliderChange={(e) => setPlot1Val(e.target.value)}
+        onScaleChange={(scale) => setPlot1Val(scale)}
         paths={[pts]}
         line_props={line_props}
+        mouse_clicked={mouse_clicked}
+        mouse_pos={mouse_pos}
       />
       <Plot
         slider_value={plot_2_val}
-        onSliderChange={(e) => setPlot2Val(e.target.value)}
+        onScaleChange={(scale) => setPlot2Val(scale)}
         paths={[func_pts, new_pts]}
         line_props={line_props}
-      />
-      <ClickDrag
-        onMouseDown={() => setButtonClicked(true)}
-        value={button_value}
+        mouse_clicked={mouse_clicked}
+        mouse_pos={mouse_pos}
       />
     </div>
   );

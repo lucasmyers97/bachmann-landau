@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from './Plot.module.css';
 import Canvas from './Canvas';
+import ClickDrag from './ClickDrag';
 import { renderCanvas, createGridlinePaths } from './Render';
 
 function Plot(props) {
+
+  const min_zoom = 0.01;
+  const min_scale = 0;
 
   function drawGrid(canvasRef, zoom) {
     const grid_paths = createGridlinePaths(canvasRef, 0.2, zoom);
@@ -13,38 +17,68 @@ function Plot(props) {
     renderCanvas(canvasRef, grid_paths, zoom, line_props);
   }
 
+  const [last_zoom, setLastZoom] = React.useState(1);
   const [zoom, setZoom] = React.useState(1);
+  const [zoom_clicked, setZoomClicked] = React.useState(false);
+  const [zoom_initial_point, setZoomInitialPoint] = React.useState({x: 0, y: 0});
+
+  const [last_scale, setLastScale] = React.useState(1);
+  const [scale, setScale] = React.useState(1);
+  const [scale_clicked, setScaleClicked] = React.useState(false);
+  const [scale_initial_point, setScaleInitialPoint] = React.useState({x: 0, y: 0});
+
+  function handleMouseUnclick() {
+    if (props.mouse_clicked) {
+      return;
+    }
+    setZoomClicked(false);
+    setScaleClicked(false);
+  }
+
+  function handleMousePosChange() {
+
+    if (zoom_clicked) {
+      const new_zoom = last_zoom
+            + (props.mouse_pos.x - zoom_initial_point.x) / 100;
+      if (new_zoom > min_zoom) {
+        setZoom(new_zoom);
+      }
+    }
+
+    if (scale_clicked) {
+      const new_scale = last_scale
+            + (props.mouse_pos.x - scale_initial_point.x) / 100;
+      if (new_scale > min_scale) {
+        setScale(new_scale);
+        props.onScaleChange(scale);
+      }
+    }
+  }
+
+  function handleZoomMouseDown(event) {
+    setZoomClicked(true);
+    setZoomInitialPoint(props.mouse_pos);
+    setLastZoom(zoom);
+  }
+
+  function handleScaleMouseDown(event) {
+    setScaleClicked(true);
+    setScaleInitialPoint(props.mouse_pos);
+    setLastScale(scale);
+  }
+
+  React.useEffect(handleMousePosChange, [props.mouse_pos]);
+  React.useEffect(handleMouseUnclick, [props.mouse_clicked]);
 
   return (
     <div className={styles.Plot}>
-      <label
-        className={styles.ZoomLabel}
-        htmlFor="zoomInput"
-      >
-        {Number(zoom*100).toFixed(0)}%
-      </label>
-      <input
-        id="zoomInput"
-        className={styles.ZoomSlider}
-        type="range"
-        min="0.1"
-        max="2"
-        step="0.01"
-        onInput={(event) => setZoom(event.target.value)}
+      <ClickDrag
+        onMouseDown={handleZoomMouseDown}
+        value={`${Number(zoom*100).toFixed(0)}%`}
       />
-      <label
-        className={styles.NormLabel}
-        htmlFor="circleSize">
-        {Number(props.slider_value*100).toExponential(2)}
-      </label>
-      <input
-        id="circleSize"
-        className={styles.NormSlider}
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        onInput={props.onSliderChange}
+      <ClickDrag
+        onMouseDown={handleScaleMouseDown}
+        value={`${Number(scale).toExponential(2)}`}
       />
       <div className={styles.Canvas}>
         <Canvas

@@ -4,6 +4,7 @@
   height: 500px;
   border-style: solid;
   border-color: white;
+  z-index: 1;
 }
 
 .Canvas {
