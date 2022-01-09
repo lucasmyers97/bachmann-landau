@@ -2,21 +2,18 @@ import React from 'react';
 import styles from './Plot.module.css';
 import Canvas from './Canvas';
 import ClickDrag from './ClickDrag';
-import { renderCanvas, createGridlinePaths } from './Render';
+import { renderCanvas } from './Render';
+import { drawGrid } from './MakeGrid';
 
 function Plot(props) {
 
   const min_zoom = 0.01;
   const min_scale = 0;
 
-  function drawGrid(canvasRef, zoom) {
-    const grid_paths = createGridlinePaths(canvasRef, 0.2, zoom);
-    const num_paths = grid_paths.length;
-    let line_props = Array(num_paths);
-    line_props.fill( [{strokeStyle: "#000000", lineWidth: 3}] );
-    renderCanvas(canvasRef, grid_paths, zoom, line_props);
-  }
+  const gridline_prop = {strokeStyle: "#000000", lineWidth: 1};
 
+
+  // Handle ClickDrags
   const [last_zoom, setLastZoom] = React.useState(1);
   const [zoom, setZoom] = React.useState(1);
   const [zoom_clicked, setZoomClicked] = React.useState(false);
@@ -70,6 +67,8 @@ function Plot(props) {
   React.useEffect(handleMousePosChange, [props.mouse_pos]);
   React.useEffect(handleMouseUnclick, [props.mouse_clicked]);
 
+
+  // Actual component
   return (
     <div className={styles.Plot}>
       <div className={styles.Buttons}>
@@ -89,7 +88,7 @@ function Plot(props) {
       </div>
       <div className={styles.BackgroundCanvas}>
         <Canvas
-          draw={(canvasRef) => {drawGrid(canvasRef, zoom);}}
+          draw={(canvasRef) => {drawGrid(canvasRef, zoom, gridline_prop);}}
         />
       </div>
     </div>

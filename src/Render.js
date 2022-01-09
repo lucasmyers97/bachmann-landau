@@ -1,5 +1,3 @@
-import { linspace } from './MathFunctions.js';
-
 function clearScreen(canvasRef) {
   const ctx = canvasRef.current.getContext("2d");
 
@@ -21,11 +19,11 @@ function zoomPath(path, zoom) {
 
 
 
-function pointToCanvasPoint(point, dim, width, height) {
+function pointToCanvasPoint(point, canvas_unit_per_unit, width, height) {
 
   return ({
-    x : -(point.y * dim / 2) + (width / 2),
-    y : (point.x * dim / 2) + (height / 2)
+    x : (point.x * canvas_unit_per_unit) + (width / 2),
+    y : -(point.y * canvas_unit_per_unit) + (height / 2)
   });
 }
 
@@ -36,11 +34,12 @@ function pathToCanvasPath(canvasRef, path) {
   const ctx = canvasRef.current.getContext("2d");
   const canvas_width = ctx.canvas.width;
   const canvas_height = ctx.canvas.height;
-  const canvas_dim = Math.min(canvas_width, canvas_height);
+  // divided by 2 because a unit is *half* the screen width
+  const canvas_unit_per_unit = Math.min(canvas_width, canvas_height) / 2;
 
   const canvas_path = path.map((point) => {
     return ( pointToCanvasPoint(point,
-                                canvas_dim,
+                                canvas_unit_per_unit,
                                 canvas_width,
                                 canvas_height) );
   });
@@ -80,26 +79,4 @@ export function renderCanvas(canvasRef, paths, zoom, line_props) {
 
   clearScreen(canvasRef);
   paths.forEach((path, i) => { drawPath(canvasRef, path, zoom, line_props[i]); });
-}
-
-
-
-export function createGridlinePaths(canvasRef, grid_spacing, zoom) {
-
-  let n_lines = Math.ceil(1 / (zoom * grid_spacing));
-  n_lines = n_lines % 2 === 0 ? n_lines : (n_lines + 1);
-  n_lines = n_lines * 2;
-  const unscaled_lines = linspace(-n_lines/2, n_lines/2, n_lines);
-  const line_scale = grid_spacing;
-  const scaled_lines = unscaled_lines.map((line) => line*line_scale);
-
-  const end = scaled_lines.length - 1;
-  const x_paths = scaled_lines.map((x_val) => {
-    return [{x: x_val, y: scaled_lines[0]}, {x: x_val, y: scaled_lines[end]}];
-  });
-  const y_paths = scaled_lines.map((y_val) => {
-    return [{x: scaled_lines[0], y: y_val}, {x: scaled_lines[end], y: y_val}];
-  });
-
-  return x_paths.concat(y_paths);
 }
