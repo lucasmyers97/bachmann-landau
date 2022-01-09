@@ -1,0 +1,7 @@
+.ClickDrag {
+  z-index: 2;
+  cursor: col-resize;
+  user-select: none;
+  width: fit-content;
+  height: fit-content;
+}

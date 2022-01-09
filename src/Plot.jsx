@@ -6,10 +6,11 @@ import { renderCanvas, createGridlinePaths } from './Render';
 function Plot(props) {
 
   function drawGrid(canvasRef, zoom) {
-    canvasRef.current.style.background = "white";
     const grid_paths = createGridlinePaths(canvasRef, 0.2, zoom);
-    console.log(grid_paths);
-    renderCanvas(canvasRef, grid_paths, zoom);
+    const num_paths = grid_paths.length;
+    let line_props = Array(num_paths);
+    line_props.fill( [{strokeStyle: "#000000", lineWidth: 3}] );
+    renderCanvas(canvasRef, grid_paths, zoom, line_props);
   }
 
   const [zoom, setZoom] = React.useState(1);
@@ -47,7 +48,7 @@ function Plot(props) {
       />
       <div className={styles.Canvas}>
         <Canvas
-          draw={(canvasRef) => renderCanvas(canvasRef, props.paths, zoom)}
+          draw={(canvasRef) => renderCanvas(canvasRef, props.paths, zoom, props.line_props)}
         />
       </div>
       <div className={styles.BackgroundCanvas}>

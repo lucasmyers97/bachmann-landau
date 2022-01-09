@@ -44,13 +44,13 @@ function pathToCanvasPath(canvasRef, path) {
                                 canvas_width,
                                 canvas_height) );
   });
-  
+
   return canvas_path;
 }
 
 
 
-function drawCanvasPath(canvasRef, canvas_path) {
+function drawCanvasPath(canvasRef, canvas_path, line_props) {
 
   const ctx = canvasRef.current.getContext("2d");
   ctx.beginPath();
@@ -58,37 +58,36 @@ function drawCanvasPath(canvasRef, canvas_path) {
     ctx.lineTo(pt.x, pt.y);
   });
 
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = '#0000FF';
+  for (let [key, value] of Object.entries(line_props)) {
+    ctx[key] = value;
+  }
   ctx.stroke();
   ctx.closePath();
 }
 
 
 
-function drawPath(canvasRef, path, zoom) {
+function drawPath(canvasRef, path, zoom, line_prop) {
 
   const zoomed_path = zoomPath(path, zoom);
   const canvas_path = pathToCanvasPath(canvasRef, zoomed_path);
-  drawCanvasPath(canvasRef, canvas_path);
+  drawCanvasPath(canvasRef, canvas_path, line_prop);
 }
 
 
 
-export function renderCanvas(canvasRef, paths, zoom) {
+export function renderCanvas(canvasRef, paths, zoom, line_props) {
 
   clearScreen(canvasRef);
-  paths.forEach((path) => { drawPath(canvasRef, path, zoom); });
+  paths.forEach((path, i) => { drawPath(canvasRef, path, zoom, line_props[i]); });
 }
 
 
 
 export function createGridlinePaths(canvasRef, grid_spacing, zoom) {
 
-  const ctx = canvasRef.current.getContext("2d");
-
   let n_lines = Math.ceil(1 / (zoom * grid_spacing));
-  n_lines = n_lines % 2 == 0 ? n_lines : (n_lines + 1);
+  n_lines = n_lines % 2 === 0 ? n_lines : (n_lines + 1);
   n_lines = n_lines * 2;
   const unscaled_lines = linspace(-n_lines/2, n_lines/2, n_lines);
   const line_scale = grid_spacing;

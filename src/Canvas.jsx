@@ -7,7 +7,7 @@ function Canvas(props) {
 
   React.useEffect(() => {
     props.draw(canvasRef);
-  });
+  }, [props.draw]);
 
   return (
     <div className={styles.Canvas}>
