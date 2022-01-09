@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/bachmann-landau/precache-manifest.bbf4041fae3cf905bc492d22089abc0e.js"
+  "/bachmann-landau/precache-manifest.c8d63e4c13529ff8e64e13a06b4fa60f.js"
 );
 
 workbox.clientsClaim();

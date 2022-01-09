@@ -1,13 +1,13 @@
 {
-  "main.css": "/bachmann-landau/static/css/main.738cc278.chunk.css",
-  "main.js": "/bachmann-landau/static/js/main.ff6fe116.chunk.js",
-  "main.js.map": "/bachmann-landau/static/js/main.ff6fe116.chunk.js.map",
-  "runtime~main.js": "/bachmann-landau/static/js/runtime~main.1f188724.js",
-  "runtime~main.js.map": "/bachmann-landau/static/js/runtime~main.1f188724.js.map",
-  "static/js/2.ba1c89cd.chunk.js": "/bachmann-landau/static/js/2.ba1c89cd.chunk.js",
-  "static/js/2.ba1c89cd.chunk.js.map": "/bachmann-landau/static/js/2.ba1c89cd.chunk.js.map",
+  "main.css": "/bachmann-landau/static/css/main.27111641.chunk.css",
+  "main.js": "/bachmann-landau/static/js/main.90a15b8e.chunk.js",
+  "main.js.map": "/bachmann-landau/static/js/main.90a15b8e.chunk.js.map",
+  "static/js/1.733f16af.chunk.js": "/bachmann-landau/static/js/1.733f16af.chunk.js",
+  "static/js/1.733f16af.chunk.js.map": "/bachmann-landau/static/js/1.733f16af.chunk.js.map",
+  "runtime~main.js": "/bachmann-landau/static/js/runtime~main.d84ee991.js",
+  "runtime~main.js.map": "/bachmann-landau/static/js/runtime~main.d84ee991.js.map",
+  "static/css/main.27111641.chunk.css.map": "/bachmann-landau/static/css/main.27111641.chunk.css.map",
   "index.html": "/bachmann-landau/index.html",
-  "precache-manifest.bbf4041fae3cf905bc492d22089abc0e.js": "/bachmann-landau/precache-manifest.bbf4041fae3cf905bc492d22089abc0e.js",
-  "service-worker.js": "/bachmann-landau/service-worker.js",
-  "static/css/main.738cc278.chunk.css.map": "/bachmann-landau/static/css/main.738cc278.chunk.css.map"
+  "precache-manifest.c8d63e4c13529ff8e64e13a06b4fa60f.js": "/bachmann-landau/precache-manifest.c8d63e4c13529ff8e64e13a06b4fa60f.js",
+  "service-worker.js": "/bachmann-landau/service-worker.js"
 }
