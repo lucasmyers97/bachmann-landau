@@ -5,7 +5,15 @@ import ClickDrag from './ClickDrag';
 import { renderCanvas } from './Render';
 import { drawGrid } from './MakeGrid';
 
-function Plot(props) {
+interface PlotProps {
+    mouse_clicked: boolean;
+    mouse_pos: {x: number, y: number};
+    onScaleChange(scale: number): void;
+    paths: {x: number, y: number}[][];
+    line_props: {strokeStyle: string, lineWidth: number}[];
+}
+
+function Plot(props: PlotProps) {
 
   const min_zoom = 0.01;
   const min_scale = 0;
@@ -35,16 +43,16 @@ function Plot(props) {
   function handleMousePosChange() {
 
     if (zoom_clicked) {
-      const new_zoom = last_zoom
-            + (props.mouse_pos.x - zoom_initial_point.x) / 100;
+      const d_zoom = (props.mouse_pos.x - zoom_initial_point.x) / 100;
+      const new_zoom = last_zoom*(1 + d_zoom);
       if (new_zoom > min_zoom) {
         setZoom(new_zoom);
       }
     }
 
     if (scale_clicked) {
-      const new_scale = last_scale
-            + (props.mouse_pos.x - scale_initial_point.x) / 100;
+      const d_scale = (props.mouse_pos.x - scale_initial_point.x) / 100;
+      const new_scale = last_scale*(1 + d_scale);
       if (new_scale > min_scale) {
         setScale(new_scale);
         props.onScaleChange(scale);
@@ -52,13 +60,13 @@ function Plot(props) {
     }
   }
 
-  function handleZoomMouseDown(event) {
+  function handleZoomMouseDown() {
     setZoomClicked(true);
     setZoomInitialPoint(props.mouse_pos);
     setLastZoom(zoom);
   }
 
-  function handleScaleMouseDown(event) {
+  function handleScaleMouseDown() {
     setScaleClicked(true);
     setScaleInitialPoint(props.mouse_pos);
     setLastScale(scale);

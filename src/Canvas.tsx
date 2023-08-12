@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from './Canvas.module.css';
 
-function Canvas(props) {
+interface CanvasProp {
+    draw(canvasRef: React.RefObject<HTMLCanvasElement>) : void;
+}
 
-  const canvasRef = React.useRef(null);
+function Canvas(props: CanvasProp) {
+
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
     props.draw(canvasRef);

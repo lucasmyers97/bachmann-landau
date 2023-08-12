@@ -1,6 +1,22 @@
+interface Point {
+    x: number;
+    y: number;
+}
 
-export function drawCircle(canvasRef, radius) {
-  const ctx = canvasRef.current.getContext("2d");
+export function drawCircle(canvasRef: React.RefObject<HTMLCanvasElement>, 
+                           radius: number) {
+
+  const current = canvasRef.current;
+  if (current == null) {
+    console.log("current is null");
+    return;
+  }
+
+  const ctx = current.getContext("2d");
+  if (ctx == null) {
+      console.log("ctx is null");
+      return;
+  }
 
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
@@ -16,8 +32,19 @@ export function drawCircle(canvasRef, radius) {
 
 
 
-export function drawCurve(canvasRef, pts) {
-  const ctx = canvasRef.current.getContext("2d");
+export function drawCurve(canvasRef: React.RefObject<HTMLCanvasElement>, 
+                          pts: Point[]) {
+  const current = canvasRef.current;
+  if (current == null) {
+    console.log("current is null");
+    return;
+  }
+
+  const ctx = current.getContext("2d");
+  if (ctx == null) {
+      console.log("ctx is null");
+      return;
+  }
 
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
@@ -37,7 +64,7 @@ export function drawCurve(canvasRef, pts) {
 
 
 
-export function transformFunc(pt) {
+export function transformFunc(pt: Point) {
   let t = Math.atan2(pt.y, pt.x);
   const r0 = Math.sqrt(pt.x*pt.x + pt.y*pt.y);
   const r = 0.1*r0*Math.cos(10*t) + r0;
@@ -50,7 +77,7 @@ export function transformFunc(pt) {
 
 
 
-export function linspace(start, end, num) {
+export function linspace(start: number, end: number, num: number) {
   const empty_array = Array(num).fill(null);
   const dx = (end - start) / (num - 1);
   return empty_array.map( (_, idx) => {
@@ -60,7 +87,7 @@ export function linspace(start, end, num) {
 
 
 
-export function returnCircle(r) {
+export function returnCircle(r: number) {
   const t = linspace(0, 2*Math.PI, 200);
 
   return t.map((t) => {

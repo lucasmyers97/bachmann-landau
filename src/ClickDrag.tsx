@@ -1,9 +1,14 @@
 import React from 'react';
 import style from './ClickDrag.module.css';
 
-function ClickDrag(props) {
+interface ClickDragProps {
+    onMouseDown(event: React.MouseEvent<HTMLDivElement>) : void;
+    value : string;
+}
 
-  function handleMouseDown(event) {
+function ClickDrag(props: ClickDragProps) {
+
+  function handleMouseDown(event: React.MouseEvent<HTMLDivElement>) {
     props.onMouseDown(event)
   }
 

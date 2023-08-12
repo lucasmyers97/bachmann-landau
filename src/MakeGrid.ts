@@ -1,9 +1,9 @@
-import { linspace } from './MathFunctions.js';
-import { renderCanvas } from './Render.js';
+import { linspace } from './MathFunctions';
+import { renderCanvas } from './Render';
 
 
 
-function calcNTicksPerHalf(grid_spacing, zoom) {
+function calcNTicksPerHalf(grid_spacing: number, zoom: number) {
 
   const n_ticks_per_unit = 1 / grid_spacing;
   const n_units_per_half = 1 / zoom; // screen goes from (-1, 1) by default
@@ -14,7 +14,7 @@ function calcNTicksPerHalf(grid_spacing, zoom) {
 
 
 
-function calcTicks(grid_spacing, zoom) {
+function calcTicks(grid_spacing: number, zoom: number) {
 
   const n_ticks_per_half = calcNTicksPerHalf(grid_spacing, zoom);
   const unscaled_ticks = linspace(-n_ticks_per_half,
@@ -28,7 +28,7 @@ function calcTicks(grid_spacing, zoom) {
 
 
 
-function createGridlinePaths(grid_spacing, zoom) {
+function createGridlinePaths(grid_spacing: number, zoom: number) {
 
   const ticks = calcTicks(grid_spacing, zoom);
 
@@ -45,7 +45,9 @@ function createGridlinePaths(grid_spacing, zoom) {
 
 
 
-export function drawGrid(canvasRef, zoom, gridline_prop) {
+export function drawGrid(canvasRef: React.RefObject<HTMLCanvasElement>, 
+                         zoom: number, 
+                         gridline_prop: {strokeStyle: string, lineWidth: number}) {
 
   const grid_paths = createGridlinePaths(0.2, zoom);
 

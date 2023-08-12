@@ -1,4 +1,13 @@
 .App {
+}
+
+.Inputs {
+  position: relative;
+  display: flex;
+  flex-direction: col;
+}
+
+.Plots {
   position: relative;
   display: flex;
   flex-direction: row;
