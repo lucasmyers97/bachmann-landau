@@ -10,7 +10,7 @@ interface FunctionInputProps {
 function FunctionInput({ onEnter, value } : FunctionInputProps) {
 
   function getInput(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
       onEnter(event);
     }
   }
