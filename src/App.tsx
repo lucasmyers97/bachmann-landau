@@ -75,13 +75,11 @@ function App() {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
     >
-      <div>
-        <Input2DFunction
-          handleXTextboxEnter={handleXTextboxEnter}
-          handleYTextboxEnter={handleYTextboxEnter}
-          display_value={<MathJax.Node>{textTo2DTex(x_textbox_value, y_textbox_value)}</MathJax.Node>}
-        />
-      </div>
+      <Input2DFunction
+        handleXTextboxEnter={handleXTextboxEnter}
+        handleYTextboxEnter={handleYTextboxEnter}
+        display_value={<MathJax.Node>{textTo2DTex(x_textbox_value, y_textbox_value)}</MathJax.Node>}
+      />
       <div
         className={style.Plots}
       >
