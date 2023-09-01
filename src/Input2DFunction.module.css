@@ -1,0 +1,17 @@
+.Input2DFunction {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.FunctionInputs {
+    display: flex;
+    flex-direction: column;
+    width: 10em;
+}
+
+.FunctionDisplay {
+  width: fit-content;
+  height: fit-content;
+  padding-left: 2em;
+}

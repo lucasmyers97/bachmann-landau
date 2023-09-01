@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './FunctionInput.module.css';
 
 interface FunctionInputProps {
     onEnter(event: React.KeyboardEvent<HTMLInputElement>) : void;
@@ -14,7 +13,7 @@ function FunctionInput({ onEnter } : FunctionInputProps) {
   }
 
   return (
-    <div className={style.FunctionInput}>
+    <div>
       <input
         type="text"
         onKeyDown={getInput}

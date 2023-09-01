@@ -1,7 +1,7 @@
 import React from 'react';
 import MathJax from '@nteract/mathjax';
 import FunctionInput from './FunctionInput';
-import style from './FunctionInput.module.css';
+import style from './Input2DFunction.module.css';
 
 interface Input2DFunctionProps {
     handleXTextboxEnter(event: React.KeyboardEvent<HTMLInputElement>) : void;
@@ -14,10 +14,12 @@ function Input2DFunction({ handleXTextboxEnter,
                            display_value } : Input2DFunctionProps) {
 
   return (
-    <div>
-      <FunctionInput onEnter={handleXTextboxEnter}/>
-      <FunctionInput onEnter={handleYTextboxEnter}/>
-      <p className={style.Equation}>
+    <div className={style.Input2DFunction}>
+      <div className={style.FunctionInputs}>
+        <FunctionInput onEnter={handleXTextboxEnter}/>
+        <FunctionInput onEnter={handleYTextboxEnter}/>
+      </div>
+      <p className={style.FunctionDisplay}>
         {display_value}
       </p>
     </div>
