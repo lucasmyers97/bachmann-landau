@@ -84,14 +84,6 @@ function App() {
         className={style.Plots}
       >
         <Plot
-          // slider_value={plot_1_val}
-          onScaleChange={(scale: number) => setPlot1Val(scale)}
-          paths={[pts]}
-          line_props={line_props}
-          mouse_clicked={mouse_clicked}
-          mouse_pos={mouse_pos}
-        />
-        <Plot
           // slider_value={plot_2_val}
           onScaleChange={(scale: number) => setPlot2Val(scale)}
           paths={[func_pts, new_pts]}

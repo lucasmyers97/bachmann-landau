@@ -1,5 +1,21 @@
 .App {
-    padding: 2em 2em 2em 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 2em;
+
+}
+
+@media (max-width: 1000px) {
+    .App {
+        display: flex;
+        flex-direction:column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-top: 2em;
+    
+    }
 }
 
 .Inputs {
