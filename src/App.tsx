@@ -61,6 +61,13 @@ function App() {
   const line_props = [{strokeStyle: "#0000FF", lineWidth: 6},
                       {strokeStyle: "#FF0000", lineWidth: 6}];
 
+  function textTo2DTex(x_textbox_value: string, y_textbox_value: string) {
+      const x_tex = parse(x_textbox_value).toTex();
+      const y_tex = parse(y_textbox_value).toTex();
+
+      return `f(x) = \\begin{bmatrix} ${x_tex} \\\\ ${y_tex} \\end{bmatrix}`;
+  }
+
   return (
     <div
       className={style.App}
@@ -72,8 +79,7 @@ function App() {
         <Input2DFunction
           handleXTextboxEnter={handleXTextboxEnter}
           handleYTextboxEnter={handleYTextboxEnter}
-          x_textbox_value={<MathJax.Node>{parse(x_textbox_value).toTex()}</MathJax.Node>}
-          y_textbox_value={<MathJax.Node>{parse(y_textbox_value).toTex()}</MathJax.Node>}
+          display_value={<MathJax.Node>{textTo2DTex(x_textbox_value, y_textbox_value)}</MathJax.Node>}
         />
       </div>
       <div
