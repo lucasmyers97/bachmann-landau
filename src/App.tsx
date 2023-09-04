@@ -21,19 +21,6 @@ function App() {
   const [plot_1_val, setPlot1Val] = React.useState(1);
   const [plot_2_val, setPlot2Val] = React.useState(1);
 
-  // handle mouse events
-  const [mouse_pos, setMousePos] = React.useState({x: 0, y: 0});
-  const [mouse_clicked, setMouseClicked] = React.useState(false);
-  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-    setMousePos({x: event.pageX, y: event.pageY});
-  }
-  function handleMouseUp() {
-    setMouseClicked(false);
-  }
-  function handleMouseDown() {
-    setMouseClicked(true);
-  }
-
   // handle textbox events
   const [x_textbox_value, setXTextboxValue] = React.useState("0");
   const [y_textbox_value, setYTextboxValue] = React.useState("0");
@@ -73,9 +60,6 @@ function App() {
   return (
     <div
       className={style.App}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
     >
       <Input2DFunction
         handleXTextboxEnter={handleXTextboxEnter}
