@@ -3,6 +3,7 @@ import style from './ClickDrag.module.css';
 
 interface ClickDragProps {
     onValueChange(new_value: number) : void;
+    updateValue(last_value: number, delta_x: number) : number;
     formatter(print_value: number) : string;
     value : number;
 }
@@ -27,7 +28,7 @@ function ClickDrag(props: ClickDragProps) {
 
     const current_point = {x: event.pageX, y: event.pageY}; 
     const delta_x = current_point.x - click_initial_point.x;
-    props.onValueChange(last_value + delta_x);
+    props.onValueChange( props.updateValue(last_value, delta_x) );
   }
 
   function handlePointerUp(event: React.PointerEvent<HTMLDivElement>) {
