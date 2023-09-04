@@ -1,20 +1,24 @@
 import React from 'react';
 import styles from './Canvas.module.css';
 
+/**
+ * Takes a function `draw` which draws something on the canvas by using it
+ * as a plain DOM element.
+ */
 interface CanvasProp {
     draw(canvasRef: React.RefObject<HTMLCanvasElement>) : void;
 }
 
 function Canvas(props: CanvasProp) {
 
+  /* useRef gives a reference to the DOM element, literally identical to document.getElementByID */
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  React.useEffect(() => {
-    props.draw(canvasRef);
-  }, [props.draw]);
+  /* runs props.draw every time props.draw changes */
+  React.useEffect(() => {props.draw(canvasRef);}, [props.draw]);
 
   return (
-    <div className={styles.Canvas}>
+    <div>
       <canvas
         ref={canvasRef}
         width="1000"

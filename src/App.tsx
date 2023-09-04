@@ -9,6 +9,7 @@ import Plot from './Plot';
 import FunctionInput from './FunctionInput';
 import Input2DFunction from './Input2DFunction';
 import ClickDrag from './ClickDrag';
+import InteractivePlot from './InteractivePlot';
 
 interface Point {
     x: number;
@@ -69,11 +70,6 @@ function App() {
       return `f(x) = \\begin{bmatrix} ${x_tex} \\\\ ${y_tex} \\end{bmatrix}`;
   }
 
-  const [click_drag_value, setClickDragValue] = React.useState(1.0);
-  function click_drag_formatter(value: number) {
-      return `Zoom: ${value}%`;
-  }
-
   return (
     <div
       className={style.App}
@@ -89,13 +85,10 @@ function App() {
       <div
         className={style.Plots}
       >
-        <Plot
-          // slider_value={plot_2_val}
+        <InteractivePlot
           onScaleChange={(scale: number) => setPlot2Val(scale)}
           paths={[func_pts, new_pts]}
           line_props={line_props}
-          mouse_clicked={mouse_clicked}
-          mouse_pos={mouse_pos}
         />
       </div>
     </div>

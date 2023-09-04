@@ -1,3 +1,3 @@
 module.exports = {
-  components: 'src/*.tsx'
+  components: 'src/**/*.{js,jsx,ts,tsx}'
 };

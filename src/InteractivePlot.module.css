@@ -1,0 +1,15 @@
+.InteractivePlot {
+  position: relative;
+  width: 25em;
+  height: 25em;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+.ClickDrags {
+  position: absolute;
+  margin: 1em;
+  background-color: white;
+  text-align: center;
+}

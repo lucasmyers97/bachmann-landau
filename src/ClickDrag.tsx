@@ -1,6 +1,23 @@
 import React from 'react';
 import style from './ClickDrag.module.css';
 
+/**
+ * User clicks and drags on the element to change the numerical value therein.
+ * Parent specifies how to update and format the value.
+ *
+ * @param onValueChange: 
+ * Called whenever `value` is changed
+ *
+ * @param updateValue: 
+ * Takes last value before click, and change in x-coordinate since click, and
+ * determines how to update the value
+ *
+ * @param formatter:
+ * Takes value as a number and returns a formatted string
+ *
+ * @param value:
+ * Numerical value of the `ClickDrag` component.
+ */
 interface ClickDragProps {
     onValueChange(new_value: number) : void;
     updateValue(last_value: number, delta_x: number) : number;
