@@ -8,6 +8,7 @@ import style from './App.module.css';
 import Plot from './Plot';
 import FunctionInput from './FunctionInput';
 import Input2DFunction from './Input2DFunction';
+import ClickDrag from './ClickDrag';
 
 interface Point {
     x: number;
@@ -68,6 +69,11 @@ function App() {
       return `f(x) = \\begin{bmatrix} ${x_tex} \\\\ ${y_tex} \\end{bmatrix}`;
   }
 
+  const [click_drag_value, setClickDragValue] = React.useState(1.0);
+  function click_drag_formatter(value: number) {
+      return `Zoom: ${value}%`;
+  }
+
   return (
     <div
       className={style.App}
@@ -80,6 +86,12 @@ function App() {
         handleYTextboxEnter={handleYTextboxEnter}
         display_value={<MathJax.Node>{textTo2DTex(x_textbox_value, y_textbox_value)}</MathJax.Node>}
       />
+      <ClickDrag
+        onValueChange={setClickDragValue}
+        formatter={click_drag_formatter}
+        value={click_drag_value}
+      />
+      /*
       <div
         className={style.Plots}
       >
@@ -92,6 +104,7 @@ function App() {
           mouse_pos={mouse_pos}
         />
       </div>
+      */
     </div>
   );
 }
