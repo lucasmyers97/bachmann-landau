@@ -5,10 +5,7 @@ import { compile, parse } from 'mathjs';
 import { returnCircle } from './MathFunctions';
 
 import style from './App.module.css';
-import Plot from './Plot';
-import FunctionInput from './FunctionInput';
 import Input2DFunction from './Input2DFunction';
-import ClickDrag from './ClickDrag';
 import InteractivePlot from './InteractivePlot';
 
 interface Point {
@@ -24,12 +21,7 @@ function App() {
   // handle textbox events
   const [x_textbox_value, setXTextboxValue] = React.useState("0");
   const [y_textbox_value, setYTextboxValue] = React.useState("0");
-  function handleXTextboxEnter(event: React.KeyboardEvent<HTMLInputElement>) {
-    setXTextboxValue(String(event.target.value));
-  }
-  function handleYTextboxEnter(event: React.KeyboardEvent<HTMLInputElement>) {
-    setYTextboxValue(String(event.target.value));
-  }
+
   function getFuncExpression(x_expr: string, y_expr: string) {
 
     const x_func = compile(x_expr);
@@ -62,8 +54,8 @@ function App() {
       className={style.App}
     >
       <Input2DFunction
-        handleXTextboxEnter={handleXTextboxEnter}
-        handleYTextboxEnter={handleYTextboxEnter}
+        onXValueChange={setXTextboxValue}
+        onYValueChange={setYTextboxValue}
         display_value={<MathJax.Node>{textTo2DTex(x_textbox_value, y_textbox_value)}</MathJax.Node>}
       />
       <div

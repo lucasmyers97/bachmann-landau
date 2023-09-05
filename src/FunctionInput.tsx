@@ -1,14 +1,14 @@
 import React from 'react';
 
 interface FunctionInputProps {
-    onEnter(event: React.KeyboardEvent<HTMLInputElement>) : void;
+    onValueChange(new_value: string) : void;
 }
 
-function FunctionInput({ onEnter } : FunctionInputProps) {
+function FunctionInput({ onValueChange } : FunctionInputProps) {
 
   function getInput(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      onEnter(event);
+      onValueChange(String(event.target.value));
     }
   }
 
