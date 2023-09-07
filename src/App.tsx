@@ -23,16 +23,16 @@ function App() {
 
   function getFuncExpression(x_expr: string, y_expr: string) {
 
-    const x_func = compile(x_expr);
-    const y_func = compile(y_expr);
-    const func = (pt: Point) => {
-      return ({
-        x: x_func.evaluate(pt),
-        y: y_func.evaluate(pt)
-      });
-    };
+     const x_func = compile(x_expr);
+     const y_func = compile(y_expr);
+     const func = (pt: Point) => {
+       return ({
+         x: x_func.evaluate(pt),
+         y: y_func.evaluate(pt)
+       });
+     };
 
-    return func;
+     return func;
   }
 
   function textTo2DTex(x_textbox_value: string, y_textbox_value: string) {
@@ -43,7 +43,13 @@ function App() {
   }
 
   const input_circle = returnCircle(input_circle_radius);
-  const func_pts = input_circle.map(getFuncExpression(x_textbox_value, y_textbox_value));
+  let func_pts = null;
+  try {
+    func_pts = input_circle.map(getFuncExpression(x_textbox_value, y_textbox_value));
+  }
+  catch {
+    func_pts = input_circle.map((_: Point) => { return {x: 0, y: 0}; })
+  }
   const line_props = [{strokeStyle: "#0000FF", lineWidth: 6},
                       {strokeStyle: "#FF0000", lineWidth: 6}];
 
