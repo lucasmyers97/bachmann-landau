@@ -11,6 +11,9 @@ interface LineProp{
 
 
 
+/**
+  * Clears the entire canvas screen.
+  */
 function clearScreen(canvasRef: React.RefObject<HTMLCanvasElement>) {
   const current = canvasRef.current;
   if (current == null) {
@@ -33,6 +36,18 @@ function clearScreen(canvasRef: React.RefObject<HTMLCanvasElement>) {
 
 
 
+/**
+ * Takes a path and returns a path which is scaled by `zoom`
+ * 
+ * @param path: list of Points
+ * List of points comprising the path
+ *
+ * @param zoom: number
+ * Factor by which to scale the points
+ * 
+ * @return zoomed_path: list of Points
+ * rescaled points
+ */
 function zoomPath(path: Point[], zoom: number) {
   return ( path.map((pt) => {
     return ({ x : pt.x * zoom,
@@ -42,19 +57,43 @@ function zoomPath(path: Point[], zoom: number) {
 
 
 
+/**
+  * Maps point in space to point on canvas.
+  * Note that canvas points invert the y-axis.
+  *
+  * @param point: Point
+  * Point to map to canvas
+  *
+  * @param canvas_unit_per_unit: number
+  * Number of canvas units per plot unit
+  *
+  * @param canvas_width: number
+  * Width of the canvas in units of the canvas
+  *
+  * @param canvas_height: number
+  * Height of the canvas in units of the canvas
+  *
+  * @return  canvas_point: Point
+  * Point mapped to the canvas
+  */
 function pointToCanvasPoint(point: Point, 
                             canvas_unit_per_unit: number, 
-                            width: number, 
-                            height: number) {
+                            canvas_width: number, 
+                            canvas_height: number) {
 
   return ({
-    x : (point.x * canvas_unit_per_unit) + (width / 2),
-    y : -(point.y * canvas_unit_per_unit) + (height / 2)
+    x : (point.x * canvas_unit_per_unit) + (canvas_width / 2),
+    y : -(point.y * canvas_unit_per_unit) + (canvas_height / 2)
   });
 }
 
 
 
+/**
+ * Translates plot paths into canvas paths.
+ * Just does a rescaling based on canvas width, and also takes y -> -y
+ * because of how the canvas axes are set up.
+ */
 function pathToCanvasPath(canvasRef: React.RefObject<HTMLCanvasElement>, 
                           path: Point[]) {
 
@@ -87,6 +126,10 @@ function pathToCanvasPath(canvasRef: React.RefObject<HTMLCanvasElement>,
 
 
 
+/**
+    * Draw path to canvas given styling by `line_props`.
+    * `canvas_path` points must be given in canvas coordinates
+    */
 function drawCanvasPath(canvasRef: React.RefObject<HTMLCanvasElement>, 
                         canvas_path: Point[], 
                         line_props: LineProp)
@@ -117,6 +160,10 @@ function drawCanvasPath(canvasRef: React.RefObject<HTMLCanvasElement>,
 
 
 
+/**
+ * Draws single path to canvas based on scaling constant `zoom` and 
+ * `line_prop` object which describes path styling.
+ */
 function drawPath(canvasRef: React.RefObject<HTMLCanvasElement>, 
                   path: Point[], 
                   zoom: number, 
@@ -129,6 +176,11 @@ function drawPath(canvasRef: React.RefObject<HTMLCanvasElement>,
 
 
 
+/**
+ * Takes an array of paths (which are themselves arrays of Points), and then
+ * draws them to the canvas based on a scaling coefficient `zoom` and 
+ * `line_props` which describes the style of stroke
+ */
 export function renderCanvas(canvasRef: React.RefObject<HTMLCanvasElement>, 
                              paths: Point[][], 
                              zoom: number, 
