@@ -15,8 +15,7 @@ interface Point {
 
 function App() {
 
-  const [plot_1_val, setPlot1Val] = React.useState(1);
-  const [plot_2_val, setPlot2Val] = React.useState(1);
+  const [input_circle_radius, setInputCircleRadius] = React.useState(1.0);
 
   // handle textbox events
   const [x_textbox_value, setXTextboxValue] = React.useState("0");
@@ -36,18 +35,18 @@ function App() {
     return func;
   }
 
-  const pts = returnCircle(plot_1_val);
-  const func_pts = pts.map(getFuncExpression(x_textbox_value,y_textbox_value));
-  const new_pts = returnCircle(plot_1_val*plot_2_val);
-  const line_props = [{strokeStyle: "#0000FF", lineWidth: 6},
-                      {strokeStyle: "#FF0000", lineWidth: 6}];
-
   function textTo2DTex(x_textbox_value: string, y_textbox_value: string) {
       const x_tex = parse(x_textbox_value).toTex();
       const y_tex = parse(y_textbox_value).toTex();
 
       return `f(x) = \\begin{bmatrix} ${x_tex} \\\\ ${y_tex} \\end{bmatrix}`;
   }
+
+  const input_circle = returnCircle(input_circle_radius);
+  const func_pts = input_circle.map(getFuncExpression(x_textbox_value, y_textbox_value));
+  const line_props = [{strokeStyle: "#0000FF", lineWidth: 6},
+                      {strokeStyle: "#FF0000", lineWidth: 6}];
+
 
   return (
     <div
@@ -62,8 +61,8 @@ function App() {
         className={style.Plots}
       >
         <InteractivePlot
-          onScaleChange={(scale: number) => setPlot2Val(scale)}
-          paths={[func_pts, new_pts]}
+          onScaleChange={(scale: number) => setInputCircleRadius(scale)}
+          paths={[func_pts, input_circle]}
           line_props={line_props}
         />
       </div>
