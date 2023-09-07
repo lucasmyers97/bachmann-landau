@@ -23,6 +23,11 @@ function InteractivePlot(props: InteractivePlotProps) {
   const [zoom, setZoom] = React.useState(1);
   const [scale, setScale] = React.useState(1);
 
+  function handleScroll(e: React.WheelEvent<HTMLInputElement>) {
+    const new_zoom = zoom - e.deltaY * 0.001;
+    setZoom(new_zoom > 0.001 ? new_zoom : 0.001);
+  }
+
   function updateZoom(last_zoom: number, delta_x: number) {
       const d_zoom = delta_x / 100;
       const new_zoom = last_zoom*(1 + d_zoom);
@@ -52,7 +57,9 @@ function InteractivePlot(props: InteractivePlotProps) {
 
   // Actual component
   return (
-    <div className={styles.InteractivePlot}>
+    <div 
+      className={styles.InteractivePlot}
+      onWheelCapture={handleScroll}>
       <Plot 
         zoom={zoom}
         paths={props.paths}
