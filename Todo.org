@@ -3,7 +3,18 @@
 
 * To-do
 
-** TODO Fix gridlines so that they are always square
-** TODO Pass in line-width to render function
-** TODO Add ability to choose function
+** DONE Fix gridlines so that they are always square
+   CLOSED: [2023-09-09 Sat 09:37]
+** DONE Pass in line-width to render function
+   CLOSED: [2023-09-09 Sat 09:37]
+** DONE Add ability to choose function
+   CLOSED: [2023-09-09 Sat 09:37]
 
+** Plot
+*** TODO New, more closely-spaced gridlines are created, and old gridlines fade out on zoom
+*** TODO Pinch to zoom on touchscreen
+*** TODO Get rid of zoom box, display zoom somewhere else
+*** TODO Make legend for different circles
+
+** App
+*** TODO Add dropdown to select which Bachmann-Landau notation
