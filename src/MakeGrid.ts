@@ -3,6 +3,10 @@ import { renderCanvas } from './Render';
 
 
 
+/**
+ * Calculates how many ticks are necessary for half the plot window, given
+ * grid_spacing and zoom.
+ */
 function calcNTicksPerHalf(grid_spacing: number, zoom: number) {
 
   const n_ticks_per_unit = 1 / grid_spacing;
@@ -14,6 +18,11 @@ function calcNTicksPerHalf(grid_spacing: number, zoom: number) {
 
 
 
+/**
+ * Calculates the ticks for the gridlines given a grid spacing and a zoom.
+ * Here "ticks" just means coordinate along a given axis where the gridline
+ * will intersect
+ */
 function calcTicks(grid_spacing: number, zoom: number) {
 
   const n_ticks_per_half = calcNTicksPerHalf(grid_spacing, zoom);
@@ -28,6 +37,10 @@ function calcTicks(grid_spacing: number, zoom: number) {
 
 
 
+/**
+ * Creates the paths (sets of points) for each gridline given the grid
+ * spacing and zoom
+ */
 function createGridlinePaths(grid_spacing: number, zoom: number) {
 
   const ticks = calcTicks(grid_spacing, zoom);
@@ -45,6 +58,9 @@ function createGridlinePaths(grid_spacing: number, zoom: number) {
 
 
 
+/**
+ * Renders grid to canvas given canvasRef, zoom, and line properties for the gridlines
+ */
 export function drawGrid(canvasRef: React.RefObject<HTMLCanvasElement>, 
                          zoom: number, 
                          gridline_prop: {strokeStyle: string, lineWidth: number}) {
