@@ -8,7 +8,7 @@ interface GridlineTicks {
     large_alpha: number;
 }
 
-function calcGridlineTicks(n_spaces_per_view: number, viewport_width: number) {
+function calcGridlineTicks(n_spaces_per_view: number, viewport_width: number): GridlineTicks {
 /**
   * Explanation: Call n `n_spaces_per_view` and w `viewport_width`.
   * Then, supposing that when we zoom in so far that the innermost spaces
@@ -30,7 +30,7 @@ function calcGridlineTicks(n_spaces_per_view: number, viewport_width: number) {
 
     const viewport_exponent = 1 - Math.log(viewport_width / 2) / Math.log(n_spaces_per_view);
     const large_viewport_exponent = Math.floor(viewport_exponent);
-    const small_viewport_exponent = Math.ceil(viewport_exponent);
+    const small_viewport_exponent = large_viewport_exponent + 1;
 
     // 1 when they are the same, zero when they are 1 off
     const small_alpha = 1 - (small_viewport_exponent - viewport_exponent);

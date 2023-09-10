@@ -11,7 +11,8 @@
    CLOSED: [2023-09-09 Sat 09:37]
 
 ** Plot
-*** TODO New, more closely-spaced gridlines are created, and old gridlines fade out on zoom
+*** DONE New, more closely-spaced gridlines are created, and old gridlines fade out on zoom
+    CLOSED: [2023-09-10 Sun 13:18]
 **** Want gridlines to end up aligned with the $[-1, 1] \times [-1, 1]$ axes
 ***** If $n$ is the number of spaces (where $n$ must be even so that axes coincide with the gridlines) then the initial spacing will be $1 / n$. 
 ***** The new smaller viewport should then be of width $1 / n$, and $n$ new subspaces would live in the smaller viewport. 
