@@ -45,6 +45,7 @@
       Taking the floor gives $p = 0$ which gives a viewport width of $2n$.
 **** Should have initial axes and n_grid_spaces in there
 *** TODO Pinch to zoom on touchscreen
+*** TODO Fix bug with mobile Firefox browser where canvas doesn't show up
 *** TODO Get rid of zoom box, display zoom somewhere else
 *** TODO Make legend for different circles
 
