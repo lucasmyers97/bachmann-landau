@@ -6,4 +6,5 @@
   user-select: none;
   width: fit-content;
   height: fit-content;
+  touch-action: none;
 }
