@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/bachmann-landau/static/css/main.4fd9b868.css",
+    "main.css": "/bachmann-landau/static/css/main.dc312b30.css",
     "main.js": "/bachmann-landau/static/js/main.bda4739f.js",
     "index.html": "/bachmann-landau/index.html",
-    "main.4fd9b868.css.map": "/bachmann-landau/static/css/main.4fd9b868.css.map",
+    "main.dc312b30.css.map": "/bachmann-landau/static/css/main.dc312b30.css.map",
     "main.bda4739f.js.map": "/bachmann-landau/static/js/main.bda4739f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fd9b868.css",
+    "static/css/main.dc312b30.css",
     "static/js/main.bda4739f.js"
   ]
 }
