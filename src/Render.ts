@@ -4,9 +4,10 @@ interface Point {
 }
 
 
-interface LineProp{
+export interface LineProp{
     strokeStyle: string;
-    lineWidth: number
+    lineWidth: number;
+    globalAlpha?: number;
 }
 
 

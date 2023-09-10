@@ -12,6 +12,37 @@
 
 ** Plot
 *** TODO New, more closely-spaced gridlines are created, and old gridlines fade out on zoom
+**** Want gridlines to end up aligned with the $[-1, 1] \times [-1, 1]$ axes
+***** If $n$ is the number of spaces (where $n$ must be even so that axes coincide with the gridlines) then the initial spacing will be $1 / n$. 
+***** The new smaller viewport should then be of width $1 / n$, and $n$ new subspaces would live in the smaller viewport. 
+***** If $n$ is the number of spaces (where $n$ must be even so that axes coincide with the gridlines) then that means the total number of gridlines between $-1$ and $1$ should be:
+      \begin{equation}
+      n^p
+      \end{equation}
+      when the screen is zoomed in or out, with $p$ some integer power (positive for more zoomed).
+      Then the grid-spacing should be:
+      \begin{equation}
+      2 / n^p
+      \end{equation}
+      since our interval is $[-1, 1]$
+      If the screen width is $w$, then the number of visible spaces is:
+      \begin{equation}
+      v = w / (2 / n^p) = n^p w / 2
+      \end{equation}
+      So if $w = 2$ for the start, and $p = 1$ then $v = n$.
+      we want the $p$'s for which $v \approx n$.
+      This gives:
+      \begin{equation}
+      p = \log_n(2 n / w) = 1 - \ln(w / 2) / \ln(n)
+      \end{equation}
+      This will be a non-integer, so we take the floor and the ceil to get the two limits.
+      The smaller one of these will give the larger viewport width, which is given by
+      \begin{equation}
+      2 n / n^{p} = 2 / n^{p - 1} 
+      \end{equation}
+      Again, if $w$ is slightly larger than $2$, then $p < 1$ by a bit.
+      Taking the floor gives $p = 0$ which gives a viewport width of $2n$.
+**** Should have initial axes and n_grid_spaces in there
 *** TODO Pinch to zoom on touchscreen
 *** TODO Get rid of zoom box, display zoom somewhere else
 *** TODO Make legend for different circles

@@ -1,38 +1,56 @@
 import { linspace } from './MathFunctions';
-import { renderCanvas } from './Render';
+import { renderCanvas, LineProp } from './Render';
 
-
-
-/**
- * Calculates how many ticks are necessary for half the plot window, given
- * grid_spacing and zoom.
- */
-function calcNTicksPerHalf(grid_spacing: number, zoom: number) {
-
-  const n_ticks_per_unit = 1 / grid_spacing;
-  const n_units_per_half = 1 / zoom; // screen goes from (-1, 1) by default
-  const n_ticks_per_half = Math.ceil( n_ticks_per_unit * n_units_per_half );
-
-  return n_ticks_per_half;
+interface GridlineTicks {
+    small_gridlines: {x: number, y: number}[][];
+    large_gridlines: {x: number, y: number}[][];
+    small_alpha: number;
+    large_alpha: number;
 }
 
-
-
+function calcGridlineTicks(n_spaces_per_view: number, viewport_width: number) {
 /**
- * Calculates the ticks for the gridlines given a grid spacing and a zoom.
- * Here "ticks" just means coordinate along a given axis where the gridline
- * will intersect
- */
-function calcTicks(grid_spacing: number, zoom: number) {
+  * Explanation: Call n `n_spaces_per_view` and w `viewport_width`.
+  * Then, supposing that when we zoom in so far that the innermost spaces
+  * become the new width, and we want there to be n spaces in there,
+  * So then from the original reference, there would be n^2 total spaces.
+  * Taking this generally gives n^p spaces, with 2 / n^p being the space width
+  * (since our original interval is [-1, 1]).
+  *
+  * The number of spaces visible in a view width is then:
+  * v = w / (2 / n^p) = n^p w / 2
+  * If we want n spaces visible then we may solve for p as:
+  * p = log_n(2 n / w) = 1 - log(w / 2) / log(n)
+  * This will obviously not necessarily be an integer.
+  * The width corresponding to a given p is:
+  * w = n * 2 / n^p = 2 / n^{p - 1}
+  * so we should take the floor of this to get the larger viewport, and the
+  * ceil to get the smaller viewport.
+  */
 
-  const n_ticks_per_half = calcNTicksPerHalf(grid_spacing, zoom);
-  const unscaled_ticks = linspace(-n_ticks_per_half,
-                                  n_ticks_per_half,
-                                  2*n_ticks_per_half + 1); // +1 for axis line
-  const tick_scale = grid_spacing;
-  const scaled_ticks = unscaled_ticks.map((tick) => tick*tick_scale);
+    const viewport_exponent = 1 - Math.log(viewport_width / 2) / Math.log(n_spaces_per_view);
+    const large_viewport_exponent = Math.floor(viewport_exponent);
+    const small_viewport_exponent = Math.ceil(viewport_exponent);
 
-  return scaled_ticks;
+    // 1 when they are the same, zero when they are 1 off
+    const small_alpha = 1 - (small_viewport_exponent - viewport_exponent);
+    const large_alpha = 1 - (viewport_exponent - large_viewport_exponent);
+
+    const larger_viewport_width = 2 / n_spaces_per_view**(large_viewport_exponent - 1);
+
+    // +1 to get ticks instead of spaces
+    const large_ticks = linspace(-larger_viewport_width / 2, larger_viewport_width / 2, n_spaces_per_view + 1);
+    const small_ticks = linspace(-larger_viewport_width / 2, larger_viewport_width / 2, n_spaces_per_view*n_spaces_per_view + 1);
+
+    const large_gridlines = createGridlinePaths(large_ticks);
+    const small_gridlines = createGridlinePaths(small_ticks);
+
+    return {
+        large_gridlines: large_gridlines,
+        small_gridlines: small_gridlines,
+        large_alpha: large_alpha,
+        small_alpha: small_alpha
+    };
 }
 
 
@@ -41,9 +59,7 @@ function calcTicks(grid_spacing: number, zoom: number) {
  * Creates the paths (sets of points) for each gridline given the grid
  * spacing and zoom
  */
-function createGridlinePaths(grid_spacing: number, zoom: number) {
-
-  const ticks = calcTicks(grid_spacing, zoom);
+function createGridlinePaths(ticks: number[]) {
 
   const end = ticks.length - 1;
   const x_paths = ticks.map((x_val) => {
@@ -63,13 +79,24 @@ function createGridlinePaths(grid_spacing: number, zoom: number) {
  */
 export function drawGrid(canvasRef: React.RefObject<HTMLCanvasElement>, 
                          zoom: number, 
-                         gridline_prop: {strokeStyle: string, lineWidth: number}) {
+                         gridline_prop: LineProp) {
 
-  const grid_paths = createGridlinePaths(0.2, zoom);
+    const {large_gridlines, small_gridlines, large_alpha, small_alpha} = calcGridlineTicks(4, 2 * 1 / zoom);
 
-  const num_paths = grid_paths.length;
-  let gridline_props = Array(num_paths);
-  gridline_props.fill(gridline_prop);
+    const large_gridline_prop = structuredClone(gridline_prop);
+    large_gridline_prop.globalAlpha = large_alpha;
+    const num_large_paths = large_gridlines.length;
+    let large_gridline_props = Array(num_large_paths);
+    large_gridline_props.fill(large_gridline_prop);
 
-  renderCanvas(canvasRef, grid_paths, zoom, gridline_props);
+    const small_gridline_prop = structuredClone(gridline_prop);
+    small_gridline_prop.globalAlpha = small_alpha;
+    const num_small_paths = small_gridlines.length;
+    let small_gridline_props = Array(num_small_paths);
+    small_gridline_props.fill(small_gridline_prop);
+
+    const gridlines = large_gridlines.concat(small_gridlines);
+    const gridline_props = large_gridline_props.concat(small_gridline_props);
+
+    renderCanvas(canvasRef, gridlines, zoom, gridline_props);
 }

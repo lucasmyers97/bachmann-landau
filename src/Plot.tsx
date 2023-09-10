@@ -15,7 +15,7 @@ interface PlotProps {
 
 function Plot(props: PlotProps) {
 
-  const gridline_prop = {strokeStyle: "#000000", lineWidth: 1};
+  const gridline_prop = {strokeStyle: "#000000", lineWidth: 2};
 
   // Actual component
   return (
