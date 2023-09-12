@@ -45,9 +45,12 @@
       Taking the floor gives $p = 0$ which gives a viewport width of $2n$.
 **** Should have initial axes and n_grid_spaces in there
 *** TODO Pinch to zoom on touchscreen
-*** TODO Fix bug with mobile Firefox browser where canvas doesn't show up
+*** DONE Fix bug with mobile Firefox browser where canvas doesn't show up
+    CLOSED: [2023-09-11 Mon 22:04]
+**** Seemed to go away next time I tried it, not sure what the deal was
 *** TODO Get rid of zoom box, display zoom somewhere else
 *** TODO Make legend for different circles
 
 ** App
 *** TODO Add dropdown to select which Bachmann-Landau notation
+*** TODO Add explanation with GIFS (can just screenrecord from phone)
