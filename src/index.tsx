@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './pico.min.css';
+import './css/pico.min.css';
 import App from './App';
 
 ReactDOM.render(
