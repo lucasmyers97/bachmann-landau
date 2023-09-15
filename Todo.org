@@ -9,7 +9,6 @@
    CLOSED: [2023-09-09 Sat 09:37]
 ** DONE Add ability to choose function
    CLOSED: [2023-09-09 Sat 09:37]
-
 ** Plot
 *** DONE New, more closely-spaced gridlines are created, and old gridlines fade out on zoom
     CLOSED: [2023-09-10 Sun 13:18]
@@ -44,7 +43,8 @@
       Again, if $w$ is slightly larger than $2$, then $p < 1$ by a bit.
       Taking the floor gives $p = 0$ which gives a viewport width of $2n$.
 **** Should have initial axes and n_grid_spaces in there
-*** TODO Pinch to zoom on touchscreen
+*** DONE Pinch to zoom on touchscreen
+    CLOSED: [2023-09-14 Thu 22:51]
 *** DONE Fix bug with mobile Firefox browser where canvas doesn't show up
     CLOSED: [2023-09-11 Mon 22:04]
 **** Seemed to go away next time I tried it, not sure what the deal was
